@@ -1,0 +1,90 @@
+
+class Book:
+    def __init__(self, name, author, description, serialnumber, pagecount):
+       self.name = name
+       self.author = author
+       self.description = description
+       self.serialnum = serialnumber
+       self.page = pagecount
+
+
+    def barrowBook(self):
+        if self in borrowedbook:
+            print(f"{self.name} has already borrowed, it must be returned back first. ")
+
+        else:
+            borrowedbook.append(self)
+            givenbook.remove(self)
+            print(f"You borrowed the the {self.name}")
+
+
+    def givebackbook(self):
+        if self in givenbook:
+            print(f"You can't give back the {self.name}, because you didn't borrow it. ")
+
+        else:
+            borrowedbook.remove(self)
+            givenbook.append(self)
+            print(f"You successfully returned the {self.name}")
+
+    def __str__(self):
+        return f"Name: {self.name}\nDescription: {self.description}\nAuthor: {self.author}"
+
+
+FelatunBeyVeRakımEfendi = Book("Felatun Bey ve Rakım Efendi", "Ahmet Mithat Efendi", "Yanlış batılılaşmayı konu alır", 1, 168 )
+Vakif = Book("Vakıf", "Isaac Asimov", "Bir uzay imparatorluğunun çöküşü", 2, 216)
+borrowedbook=[]
+givenbook=[FelatunBeyVeRakımEfendi, Vakif]
+işlemyapılabilirkitaplar=[FelatunBeyVeRakımEfendi, Vakif]
+
+
+print("Mevcut kitaplar= ")
+for i in range(0,len(givenbook)):
+    print(f"{i+1}-{givenbook[i]}")
+    i=i+1
+
+print("\n1- Kitabı ödünç almak\n2- Kitabı iade etmek\n3- Çıkış")
+
+def choseBook(kitapserino):
+    if kitapserino==FelatunBeyVeRakımEfendi.serialnum:
+        print(f"Seçtiğiniz kitap {FelatunBeyVeRakımEfendi.name}\n")
+        return FelatunBeyVeRakımEfendi
+    elif kitapserino==Vakif.serialnum:
+        print(f"Seçtiğiniz kitap: {Vakif.name}\n")
+        return Vakif
+    else:
+        print("Geçersiz işlem")
+
+
+
+
+while True:
+    #Currentbook=(map(, givenbackbook.spl))
+    #print("Kütüphanemizdeki kitaplar: \n{}".format(Currentbook))
+    x =(input("\nişlem numaranız="))
+
+    if x=="1":
+        print("İşlem yapılabilir kitaplar= ")
+        for i in range(0, len(işlemyapılabilirkitaplar)):
+            print(f"{i + 1}-{işlemyapılabilirkitaplar[i].name}")
+            i = i + 1
+
+        serino=int(input(f"Kitap seçiniz: "))
+        anlık=choseBook(serino)
+        anlık.barrowBook()
+    elif x=="2":
+        for i in range(0, len(işlemyapılabilirkitaplar)):
+            print(f"{i + 1}-{işlemyapılabilirkitaplar[i].name}")
+            i = i + 1
+
+
+        serino = int(input("Kitap seçiniz: "))
+        anlık = choseBook(serino)
+
+        anlık.givebackbook()
+    elif x=="3":
+        print("\nÇıkış yaptınız")
+        exit()
+    else:
+        print("\ngeçersiz işlem tekrar deneyiniz")
+    print("\nİşlem seçim ekranı=\n1- Kitabı ödünç almak\n2- Kitabı iade etmek\n3- Çıkış")
